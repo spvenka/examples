@@ -1,8 +1,8 @@
-package com.examples.mongodb.repository;
+package com.examples.mongodb.service;
 
 import com.examples.mongodb.domain.Person;
 
-public interface PersonRepository {
+public interface PersonService {
 	public void logAllPersons();
 	public int getAvarageAgeOfPerson();
 	public void insertPerson(Person p);

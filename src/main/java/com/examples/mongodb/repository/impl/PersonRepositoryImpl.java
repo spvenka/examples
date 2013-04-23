@@ -48,11 +48,11 @@ public class PersonRepositoryImpl implements PersonRepository{
     }
 
     @Override
-    public void insertPersonWithNameJohnAndRandomAge() {
+    public void insertPerson(Person p) {
         //get random age between 1 and 100
-        double age = Math.ceil(Math.random() * 100);
+        //double age = Math.ceil(Math.random() * 100);
 
-        Person p = new Person("John", (int) age);
+        //Person p = new Person("John", (int) age);
 
         mongoTemplate.insert(p);
     }
