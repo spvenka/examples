@@ -1,21 +1,22 @@
 package com.examples.mongodb.repository.impl;
 
-import java.util.Iterator;
 import java.util.List;
-
-import com.examples.mongodb.domain.Person;
-import com.examples.mongodb.repository.PersonRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.examples.mongodb.domain.Person;
+import com.examples.mongodb.repository.PersonRepository;
 
 /**
  * Repository for {@link Person}s
  */
 @Repository
+@Scope("singleton")
 public class PersonRepositoryImpl implements PersonRepository{
 
     static final Logger logger = LoggerFactory.getLogger(PersonRepositoryImpl.class);
@@ -24,35 +25,12 @@ public class PersonRepositoryImpl implements PersonRepository{
     MongoTemplate mongoTemplate;
     
     @Override
-    public void logAllPersons() {
-        List<Person> results = mongoTemplate.findAll(Person.class);
-        logger.info("Total amount of persons: {}", results.size());
-        logger.info("Results: {}", results);
-    }
-
-    /**
-     * Calculates the average age of a {@link Person}.
-     *
-     * @return the average age
-     */
-    @Override
-    public int getAvarageAgeOfPerson() {
-        List<Person> results = mongoTemplate.findAll(Person.class);
-        int age = 0;
-        Iterator<Person> personIterator = results.iterator();
-        while (personIterator.hasNext()) {
-            Person nextPerson = personIterator.next();
-            age += nextPerson.getAge();
-        }
-        return age / results.size();
+    public List<Person> findAllPersons() {
+        return mongoTemplate.findAll(Person.class);
     }
 
     @Override
     public void insertPerson(Person p) {
-        //get random age between 1 and 100
-        //double age = Math.ceil(Math.random() * 100);
-
-        //Person p = new Person("John", (int) age);
 
         mongoTemplate.insert(p);
     }

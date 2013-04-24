@@ -1,4 +1,4 @@
-package com.examples.mongodb.main;
+package com.examples.mongodb.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class MongoDBApp {
     public static void main( String[] args ) {
 		logger.info("Bootstrapping MongoDemo application");
 
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("META-INF/spring/applicationContext.xml");
+		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 		PersonService personService = (PersonService)context.getBean("personServiceImpl");
 
@@ -29,10 +29,10 @@ public class MongoDBApp {
 		personService.createPersonCollection();
 
         //for(int i=0; i<20; i++) {
-		personService.insertPerson(new Person("Tom", 30));
+		personService.insertPerson(new Person("Mike", 35));
         //}
 
-		personService.logAllPersons();
+		personService.findAllPersons();
         logger.info("Avarage age of a person is: {}", personService.getAvarageAgeOfPerson());
 
         logger.info("Finished MongoDemo application");

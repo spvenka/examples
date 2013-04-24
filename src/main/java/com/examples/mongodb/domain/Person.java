@@ -1,5 +1,7 @@
 package com.examples.mongodb.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * A simple POJO representing a Person
  */
 @Document
+@XmlRootElement(name = "Person")
 public class Person {
 
     @Id
@@ -15,8 +18,13 @@ public class Person {
     private String name;
     private String homeTown;
     private int age;
-
+    
+    public Person() {
+		super();
+	}
+    
     public Person(String name, int age) {
+    	super();
         this.name = name;
         this.age = age;
     }
