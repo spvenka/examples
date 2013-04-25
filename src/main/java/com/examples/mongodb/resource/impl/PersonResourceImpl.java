@@ -2,10 +2,16 @@ package com.examples.mongodb.resource.impl;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 import org.slf4j.Logger;
@@ -34,7 +40,8 @@ public class PersonResourceImpl implements PersonResource{
     
     @Override
     @GET
-    @Produces({ "application/json"})
+    //@Produces({ "application/json"})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public List<Person> findAllPersons() {
     	List<Person> results = personService.findAllPersons();
         /*Required in case its unable to marshal JSON/xml response. Making Person class @XmlRootElement annotated resolves the issue
@@ -44,22 +51,48 @@ public class PersonResourceImpl implements PersonResource{
     }
 
     @Override
-    public int getAvarageAgeOfPerson() {
-        return personService.getAvarageAgeOfPerson();
-    }
+    @GET @Path("search/{query}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<Person> findByName(@PathParam("query") String query) {
+		logger.info("Finding person by name: " + query);
+		return personService.findByName(query);
+	}
+
+	@GET @Path("{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Person findById(@PathParam("id") String id) {
+		logger.info("Finding person by id: " + id);
+		return personService.findById(id);
+	}
 
     @Override
-    public void insertPerson(Person p) {
-    	personService.insertPerson(p);
-    }
+    @POST
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Person create(Person person) {
+		logger.info("Creating person: " + person.getName());
+		personService.create(person);
+		return person;
+	}
 
     @Override
-    public void createPersonCollection() {
-    	personService.createPersonCollection();
-    }
-
+    @PUT @Path("{id}")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Person update(Person person) {
+		logger.info("Updating person: " + person.getName());
+		personService.update(person);
+		return person;
+	}
+	
     @Override
-    public void dropPersonCollection() {
-    	personService.dropPersonCollection();
-    }
+    @DELETE @Path("{id}")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	//public void remove(@PathParam("name") String name) {
+	public Person delete(Person person) {
+		logger.info("Deleting person: " + person.getName());
+		personService.delete(person);
+		return person;
+	}
 }

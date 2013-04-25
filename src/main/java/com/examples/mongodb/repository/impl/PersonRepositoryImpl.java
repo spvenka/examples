@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.examples.mongodb.domain.Person;
@@ -30,9 +32,28 @@ public class PersonRepositoryImpl implements PersonRepository{
     }
 
     @Override
-    public void insertPerson(Person p) {
+    public List<Person> findByName(String name) {
+        return mongoTemplate.find(new Query(Criteria.where("name").is(name)), Person.class);
+    }
 
-        mongoTemplate.insert(p);
+    @Override
+    public Person findById(String id) {
+        return mongoTemplate.findOne(new Query(Criteria.where("_id").is(id)), Person.class);
+    }      
+    
+    @Override
+    public void create(Person person) {
+        mongoTemplate.insert(person);
+    }
+    
+    @Override
+    public void update(Person person)	{
+		mongoTemplate.save(person);
+	} 
+
+    @Override
+    public void delete(Person person) {
+    	mongoTemplate.remove(person);
     }
 
     /**

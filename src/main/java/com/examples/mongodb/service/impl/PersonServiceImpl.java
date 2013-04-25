@@ -33,6 +33,32 @@ public class PersonServiceImpl implements PersonService{
         
         return results;
     }
+    
+    @Override
+    public List<Person> findByName(String name) {
+    	List<Person> results = personRepository.findByName(name);
+        return results;
+    }
+    
+    @Override
+    public Person findById(String id) {
+    	return personRepository.findById(id);
+    }  
+    
+    @Override
+    public void create(Person person) {
+        personRepository.create(person);
+    }
+
+    @Override
+    public void update(Person person) {
+        personRepository.update(person);
+    }
+
+    @Override
+    public void delete(Person person) {
+    	personRepository.delete(person);
+    }
 
     @Override
     public int getAvarageAgeOfPerson() {
@@ -44,20 +70,15 @@ public class PersonServiceImpl implements PersonService{
             age += nextPerson.getAge();
         }
         return age / results.size();
-    }
+    } 
 
     @Override
-    public void insertPerson(Person p) {
-        personRepository.insertPerson(p);
+    public void dropPersonCollection() {
+        personRepository.dropPersonCollection();
     }
 
     @Override
     public void createPersonCollection() {
         personRepository.createPersonCollection();
-    }
-
-    @Override
-    public void dropPersonCollection() {
-        personRepository.dropPersonCollection();
     }
 }

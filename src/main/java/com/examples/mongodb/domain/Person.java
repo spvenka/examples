@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * A simple POJO representing a Person
  */
 @Document
-@XmlRootElement(name = "Person")
+@XmlRootElement//(name = "Person")
 public class Person {
 
     @Id
@@ -27,6 +27,13 @@ public class Person {
     	super();
         this.name = name;
         this.age = age;
+    }
+    
+    public Person(String name, int age, String homeTown) {
+    	super();
+        this.name = name;
+        this.age = age;
+        this.homeTown = homeTown;
     }
 
     public String getPersonId() {

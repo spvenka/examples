@@ -6,7 +6,11 @@ import com.examples.mongodb.domain.Person;
 
 public interface PersonRepository {
 	public List<Person> findAllPersons();
-	public void insertPerson(Person p);
+	public List<Person> findByName(String name);
+	public Person findById(String id);
+	public void create(Person person);
+	public void update(Person person);
+	public void delete(Person person);
 	public void createPersonCollection();
 	public void dropPersonCollection();
 }

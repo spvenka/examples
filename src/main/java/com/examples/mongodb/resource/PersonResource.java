@@ -2,14 +2,12 @@ package com.examples.mongodb.resource;
 
 import java.util.List;
 
-import javax.ws.rs.core.Response;
-
 import com.examples.mongodb.domain.Person;
 
 public interface PersonResource {
 	public List<Person> findAllPersons();
-	public int getAvarageAgeOfPerson();
-	public void insertPerson(Person p);
-	public void createPersonCollection();
-	public void dropPersonCollection();
+	public List<Person> findByName(String query);
+	public Person create(Person person);
+	public Person update(Person person);
+	public Person delete(Person person);
 }

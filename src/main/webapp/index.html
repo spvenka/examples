@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Persons Diary</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+<div class="header">
+	<input type="text" id="searchKey"/>
+	<button id="btnSearch">Search</button>
+	<button id="btnAdd">Add Person</button>
+</div>
+
+
+<div class="leftArea">
+<ul id="personList"></ul>
+</div>
+
+<form id="personForm">
+	
+<div class="mainArea">
+
+<label>Id:</label>
+<input id="personId" name="personId" type="text" disabled />
+
+<label>Name:</label>
+<input type="text" id="name" name="name" required>
+
+<label>Age:</label>
+<input type="text" id="age" name="age"/>
+
+<label>Home town:</label>
+<input type="text" id="homeTown" name="homeTown"/>
+
+<button id="btnSave">Save</button>
+<button id="btnDelete">Delete</button>
+
+</div>
+
+<!-- div class="rightArea">
+
+<img id="pic" height="300"/>
+
+<!-- label>Notes:</label>
+<textarea id="description" name="description"></textarea>
+</div-->
+
+</form>
+
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
